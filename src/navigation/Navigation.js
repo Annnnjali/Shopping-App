@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import ProductCategories from "../screen/ProductCategories";
 import ProductDetails from "../screen/ProductDetails";
 import CategoryScreen from "../screen/categoryScreen";
+import AddCart from "../screen/AddCart";
 
 const Stack = createStackNavigator();
 
@@ -26,6 +27,7 @@ const Navigation = () => {
                 <Stack.Screen name='ProductCategories' component={ProductCategories} />
                 <Stack.Screen name='ProductDetails' component={ProductDetails} />
                 <Stack.Screen name='categoryScreen' component={CategoryScreen} />
+                <Stack.Screen name='AddCart' component={AddCart} />
             </Stack.Navigator>
         </NavigationContainer>
     )

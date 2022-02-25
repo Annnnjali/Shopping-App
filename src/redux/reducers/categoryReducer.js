@@ -1,11 +1,17 @@
 import { ActionTypes } from "../constants/productConstant";
 
-export const categoryInitialState = [];
+export const categoryInitialState = {
+    categories: [],
+    isFetching: false,
+    pageNumber: 1
+};
 
 const categoryReducer = (state = categoryInitialState, action) => {
     switch (action.type) {
+        case ActionTypes.IS_FETCHING:
+            return {...state, isFetching: true};
         case ActionTypes.SET_CATEGORY_PRODUCT:
-            return action.productData;
+            return {...state, categories: action.productData, isFetching: false};
         default:
             return state;
     }

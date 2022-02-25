@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-    StyleSheet, 
     Text, 
     View,
     Image, 
@@ -12,7 +11,9 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../redux/actions/productAction';
 import { fetchProductsCategory } from '../redux/actions/productActionCategory';
-
+import EStyleSheet from 'react-native-extended-stylesheet';
+import ProductCard from '../components/molecule/ProductCard';
+import Image__ from '../components/atoms/image/Image__';
 const ProductCategories = ({ navigation }) => {
   const dispatch = useDispatch();
   const {products, isFetching} = useSelector(state => state.products);
@@ -41,7 +42,13 @@ const ProductCategories = ({ navigation }) => {
 
   const renderHeader = () => (
     <View>
-      <Text style={styles.txt}>Categories</Text>
+      <View style={styles.cart}>
+        <Text style={styles.txt}>Categories</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('AddCart')}>
+          <Image style={styles.image} source={require('../assets/add_cart_1.jpg')} />
+        </TouchableOpacity>
+      </View>
+
       <FlatList
         horizontal={true}
         pagingEnabled={true}
@@ -56,21 +63,7 @@ const ProductCategories = ({ navigation }) => {
 
   const renderItem = ({item}) => {
     return (
-      <View style={styles.productContainer}>
-        <Image style={styles.img} source={{uri: item.image}} />
-        <Text numberOfLines={1} style={styles.title}>{item.title}</Text>
-
-        <Text numberOfLines={3} style={styles.desc}>
-          {item.description}
-        </Text>
-        <TouchableOpacity>
-          <View>
-            <Text onPress={() => navigation.navigate("ProductDetails",
-            { id: item.id,
-               })} style={{color:'#000'}}>View details</Text>
-          </View>
-        </TouchableOpacity>  
-      </View>
+      <ProductCard navigation={navigation} item={item}/>
     );
   };
 
@@ -91,11 +84,11 @@ const ProductCategories = ({ navigation }) => {
 
 export default ProductCategories;
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   container: {
     flex: 1,
     padding:5,
-    backgroundColor: '#dcdcdc',
+    backgroundColor: '$BG_COLOR',
     
   },
   cat_container: {
@@ -104,55 +97,39 @@ const styles = StyleSheet.create({
   cate: {
       flexDirection: 'row',
   },
+  cart: {
+    flexDirection: 'row',
+
+  },
   scrollview:{
     margin: 5,
   },
   cat_img: {
-    borderRadius: 200,
-    resizeMode: 'center',
+    borderRadius: 50,
     margin: 10,
     padding: 50,
     width: 60,
-    height: 70,
+    height: 60,
   },
   txt: {
-      color: 'black',
+      color: '$TEXT',
       fontWeight: 'bold',
       fontSize: 20,
       paddingHorizontal: 5,
       margin: 10,
   },
+  image: {
+    height: 35,
+    width: 35,
+    margin: 7,
+    marginLeft: 180,
+    borderRadius: 10,
+  },
   txt1: {
-    color: 'black',
+    color: '$TEXT',
     fontWeight: 'bold',
     textAlign: 'center',
     paddingBottom: 7,
     fontSize: 14,
   },
-  productContainer: {
-    backgroundColor: 'white',
-    padding: 10,
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 4,
-    borderRadius: 10,
-  },
-  title: {
-    fontWeight: 'bold',
-    color: 'black',
-    marginBottom: 6,
-    fontSize: 16,
-  },
-  desc: {
-    color: '#a1a1a1',
-    marginBottom: 5,
-    fontSize: 13
-  },
-  img: {
-    width: 140,
-    height: 240,
-    marginBottom: 5,
-    resizeMode: 'center',
-  }
 });
