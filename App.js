@@ -1,8 +1,9 @@
 import React from 'react';
 import { Appearance } from 'react-native';
 import { Provider } from 'react-redux';
-import store from './src/store';
+import {store, persistedStore} from './src/store';
 import Navigation from './src/navigation/Navigation';
+import { PersistGate } from 'redux-persist/integration/react';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 
@@ -37,7 +38,9 @@ if (colorScheme === 'light') {
 const App = () => {
   return (
     <Provider store={store}>
-      <Navigation />
+      <PersistGate loading={null} persistor={persistedStore}>
+        <Navigation />
+      </PersistGate>
     </Provider>
   );
 };

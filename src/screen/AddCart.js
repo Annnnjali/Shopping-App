@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
-const AddCart = ({ navigation }) => { 
+const AddCart = () => { 
 
   return (
     <View>

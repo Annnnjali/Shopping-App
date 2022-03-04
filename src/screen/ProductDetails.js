@@ -5,19 +5,20 @@ import {
   Image,
   Alert,
   TouchableOpacity,
+  ActivityIndicator,
  } from 'react-native';
 import React, {useEffect} from 'react';
 import { useDispatch,useSelector } from 'react-redux';
 import { fetchProductsDetails } from '../redux/actions/productDetailsAction';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Button from '../components/atoms/button/Button';
+import Image__ from '../components/atoms/image/Image__';
 
 const ProductDetails = ({ route, navigation }) => { 
    const { id } = route.params;
 
   const dispatch = useDispatch();
-  const ProductDetails  = useSelector(state => state.productsDetails);
-  
+  const { productDetails, isFetching}= useSelector(state => state.productsDetails);
   useEffect(() => {
     dispatch(fetchProductsDetails(id));
    }, [])
@@ -32,25 +33,36 @@ const ProductDetails = ({ route, navigation }) => {
     );
   };
 
+  const handleButtonAlertFav = () => {
+    Alert.alert(
+      "ADDED TO FAVORITES"
+    );
+  };
+    
   return (
     <View style={styles.Container}>
 
-      <TouchableOpacity onPress={() => navigation.navigate('AddCart')}>
-        <Image style={styles.image} source={require('../assets/add_cart_1.jpg')} />
-      </TouchableOpacity>
+      <Image__ navigation={navigation} />
       
       <View>
         <Text style={styles.txt}>PRODUCT DETAILS</Text>
       </View>
-      
-      <ScrollView style={styles.productContainer}>
-        <Image style={styles.img} source={{ uri: ProductDetails.image }} />
 
-        <Text style={styles.title}>{ProductDetails.title}</Text>
+     
+      <ScrollView style={styles.productContainer} >
+        {isFetching ? <ActivityIndicator size="large" color="#333" /> : null}
 
-        <Text style={styles.desc}>{ProductDetails.description}</Text>
+        <TouchableOpacity onPress={handleButtonAlertFav}>
+          <Image style={styles.image} source={require('../assets/heart.png')} />
+        </TouchableOpacity>
 
-        <Button text='ADD TO CART' style={styles.btn} onPress={handleButtonAlert} />
+        <Image style={styles.img} source={{ uri: productDetails.image }} />
+
+        <Text style={styles.title}>{productDetails.title}</Text>
+
+        <Text style={styles.desc}>{productDetails.description}</Text>
+
+        <Button text='ADD TO CART' onPress={handleButtonAlert} />
 
         <Button text='Back' onPress={handleButtonPress} />
       </ScrollView>
@@ -66,11 +78,12 @@ const styles = EStyleSheet.create({
       backgroundColor: '$BG_COLOR',
     },
     image: {
-      height: 35,
-      width: 35,
-      marginTop: 10,
-      marginLeft: 310,
+      width: 30,
+      height: 30,
+      marginBottom: 5,
       borderRadius: 10,
+      resizeMode: 'center',
+      alignSelf: 'flex-end',
     },
     txt: {
       textAlign: 'center',
@@ -106,14 +119,6 @@ const styles = EStyleSheet.create({
         color: '$DARK',
         fontWeight: 'bold',
         fontSize: 15,
-    },
-    btn: {
-        alignItems : 'center',
-        backgroundColor: '$PRIMARY',
-        marginVertical: 20,
-        marginBottom: 60,
-        marginHorizontal: 70,
-        borderRadius: 30,
     },
     txt1: {
         color: '$BG_COLOR',

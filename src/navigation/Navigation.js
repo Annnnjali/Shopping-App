@@ -5,14 +5,22 @@ import ProductCategories from "../screen/ProductCategories";
 import ProductDetails from "../screen/ProductDetails";
 import CategoryScreen from "../screen/categoryScreen";
 import AddCart from "../screen/AddCart";
+import Login from "../screen/auth/Login";
+import Profile from "../screen/auth/Profile";
+import Register from "../screen/auth/Register";
+import Password from "../screen/auth/Password";
+import Favorite from "../screen/Favorite";
+import { useSelector } from "react-redux";
 
 const Stack = createStackNavigator();
 
 const Navigation = () => {
+    const {isLogin} = useSelector(state => state.auth);
     return(
         <NavigationContainer>
             <Stack.Navigator
                 screenOptions={{
+                    headerShown: false,
                     headerStyle: {
                         backgroundColor: 'transparent',
                     },
@@ -22,12 +30,24 @@ const Navigation = () => {
                         paddingLeft: 20,
                     }
                 }}
-                initialRouteName="ProductCategories"
             >
-                <Stack.Screen name='ProductCategories' component={ProductCategories} />
-                <Stack.Screen name='ProductDetails' component={ProductDetails} />
-                <Stack.Screen name='categoryScreen' component={CategoryScreen} />
-                <Stack.Screen name='AddCart' component={AddCart} />
+                {isLogin ? (
+                    <>
+                        <Stack.Screen name='ProductCategories' component={ProductCategories} />
+                        <Stack.Screen name='ProductDetails' component={ProductDetails} />
+                        <Stack.Screen name='categoryScreen' component={CategoryScreen} options={{headerShown: true}}/>
+                        <Stack.Screen name='AddCart' component={AddCart} />
+                        <Stack.Screen name='Favorite' component={Favorite} />
+                        <Stack.Screen name='Profile' component={Profile} />
+                    </>
+                ) : (
+                    <>
+                        <Stack.Screen name='Login' component={Login} />
+                        <Stack.Screen name='Password' component={Password} />
+                        <Stack.Screen name='Register' component={Register} />
+                    </>
+                )}
+                
             </Stack.Navigator>
         </NavigationContainer>
     )
