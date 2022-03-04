@@ -5,11 +5,19 @@ import {
   StyleSheet, 
   Text, 
   View, 
+  TouchableOpacity,
 } from 'react-native'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { logOut } from '../../redux/actions/authAction'
 
 const Profile = ({ navigation }) => {
   const { userDetails } = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+
+  const log_out = () => {
+    dispatch(logOut());
+  }
 
   return (
     <View style={styles.head}>
@@ -23,11 +31,11 @@ const Profile = ({ navigation }) => {
         <Text style={styles.txt}>NAME: {userDetails.name}</Text>
         <Text style={styles.txt}>E-MAIL: {userDetails.email}</Text>
       </View>
-      <View style={styles.btn}>
-        <Text 
-          style={styles.footer} 
-          onPress={() => navigation.navigate("Login")}>LOGOUT</Text>
-      </View>
+      <TouchableOpacity onPress={() => (log_out())}> 
+        <View style={styles.btn}>
+        <Text style={styles.footer}>LOGOUT</Text>
+        </View>
+      </TouchableOpacity>
       </View>
     </View>
   )
@@ -76,16 +84,3 @@ const styles = StyleSheet.create({
     fontSize: 18,
   }
 })
-
-/*
-import React from 'react'
-import { View, Text } from 'react-native'
-import Profile from './src/screen/Profile'
-export default function App() {
-  return (
-    
-        <Profile />
-
-  )
-}
-*/

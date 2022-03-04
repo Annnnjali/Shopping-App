@@ -14,7 +14,6 @@ import { fetchProductsCategory } from '../redux/actions/productActionCategory';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import ProductCard from '../components/molecule/ProductCard';
 import Image__ from '../components/atoms/image/Image__';
-import { TextInput } from 'react-native-gesture-handler';
 import SearchInput from '../components/molecule/SearchInput';
 const ProductCategories = ({ navigation }) => {
   const dispatch = useDispatch();

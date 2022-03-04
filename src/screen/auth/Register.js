@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { 
   StyleSheet,
   Text, 
@@ -9,25 +9,31 @@ import {
   TouchableOpacity,
  } from 'react-native'
  import { Formik } from 'formik'
+ import { useDispatch, useSelector } from 'react-redux'
+ import { RegisterUser } from '../../redux/actions/authAction'
  import * as Yup from 'yup';
 
  const validationSchema = Yup.object().shape({
   name: Yup.string().trim().min(3, 'Invalid name!').required('*Required'),
   email: Yup.string().email('Invalid email').required('*Required'),
   password: Yup.string().trim().min(8, 'Password is too short').required('*Required'),
-  cnfrmpass: Yup.string().when('password', (password, field) =>
-    password ? field.required().oneOf([Yup.ref('password')]) : field
-  ),
+  cnfrmpass: Yup.string().oneOf([Yup.ref('password')], 'Passwords does not match!'),
 })
 
 const Register = ({ navigation }) => {
+  const dispatch = useDispatch();
+
+  const register = (value) => {
+    dispatch(RegisterUser(value));
+  }
+
   return (
     <ScrollView style={styles.head}>
       <Text style={styles.title}>REGISTER</Text>
       <View style={styles.body}>
       <Formik
           initialValues={{ name: '', email: '', password: '', cnfrmpass: '' }}
-          onSubmit={values => console.log(values)}
+          onSubmit={values => register(values)}
           validationSchema={validationSchema}
         >
           {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
@@ -87,18 +93,18 @@ const Register = ({ navigation }) => {
                   placeholderTextColor={'lightgrey'}
                 />
               </View>
-              {errors.cnfrmpassword && touched.cnfrmpass ? (
+              {errors.cnfrmpass && touched.cnfrmpass ? (
                   <Text style={styles.error}>{errors.cnfrmpass}</Text>
                 ) : null}
               <TouchableOpacity onPress={handleSubmit}>
-                <View style={styles.btn}>
+                <View style={styles.btn} >
                   <Text style={styles.txt2}>SUBMIT</Text>
                 </View>
               </TouchableOpacity>
             </View>
           )}
         </Formik>
-        <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
           <Image style={styles.img1} source={require('../../assets/next_1.png')} />
         </TouchableOpacity>
         <Text style={styles.txt1}>Already have an account? 
@@ -110,8 +116,7 @@ const Register = ({ navigation }) => {
     </ScrollView>
   )
 }
-
-export default Register
+export default Register;
 
 const styles = StyleSheet.create({
   head:{
@@ -165,7 +170,7 @@ const styles = StyleSheet.create({
   },
   txt1:{
     marginTop: 25,
-    fontSize: 17,
+    fontSize: 15,
     textAlign: 'center',
     marginBottom: 17, 
     color: 'black'

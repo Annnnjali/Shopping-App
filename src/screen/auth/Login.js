@@ -8,8 +8,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native'
-import { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { LoginUser } from '../../redux/actions/authAction'
@@ -21,6 +20,8 @@ const validationSchema = Yup.object().shape({
 
 const Login = ({ navigation }) => {
   const dispatch = useDispatch();
+
+  
 
   const login = (value) => {
     dispatch(LoginUser(value));
@@ -79,7 +80,7 @@ const Login = ({ navigation }) => {
         <TouchableOpacity onPress={() => navigation.navigate("Password")}>
           <Text style={styles.txt1}>forgot password?</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+        <TouchableOpacity onPress={() => navigation.navigate("Register")}>
           <View> 
             <Image style={styles.img2} source={require('../../assets/next_1.png')} />
           </View>
@@ -159,9 +160,10 @@ const styles = StyleSheet.create({
   },
   txt2:{
     marginTop: 15,
-    fontSize: 17,
+    fontSize: 15,
     textAlign: 'center',
     color: 'black',
+    marginBottom: 15,
   },
   error: {
     fontSize: 12,
