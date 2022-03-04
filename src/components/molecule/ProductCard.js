@@ -1,9 +1,17 @@
-import {Alert, Text, TouchableOpacity, Image, View} from 'react-native';
-import React from 'react';
+import {Alert, Text, TouchableOpacity, Image, View, ImageBackground} from 'react-native';
+import React, { useEffect } from 'react';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import Button from '../atoms/button/Button';
+import { useDispatch } from 'react-redux';
+import { fetchFavorites } from '../../redux/actions/favAction';
 
 const ProductCard = ({navigation, item}) => {
+  const dispatch = useDispatch();
+  //const [ favorite, setFavorite] = React.useState(false);
+  // const heart = require('../../assets/heart.png')
+  // const fav = require('../../assets/fav_1.jpg')
+
+
   const handleButtonPress = () => {
     navigation.navigate('ProductDetails', {
       id: item.id,
@@ -16,10 +24,22 @@ const ProductCard = ({navigation, item}) => {
     );
   };
 
+  const handleButtonFav = () => {
+    dispatch(fetchFavorites(item));
+    //setFavorite(true);
+  };
+
+  //const imageSource= favorite ? fav : heart;
+
   return (
     <View style={styles.productContainer}>
       <TouchableOpacity onPress={handleButtonPress}>
-        <Image style={styles.img} source={{uri: item.image}} />
+        <ImageBackground style={styles.img} source={{uri: item.image}}>
+          <TouchableOpacity onPress={handleButtonFav}>
+            {/* <Image style={styles.image} source={imageSource} /> */}
+            <Image style={styles.image} source={require('../../assets/heart.png')} />
+          </TouchableOpacity>
+        </ImageBackground>
         <Text numberOfLines={1} style={styles.title}>
           {item.title}
         </Text>
@@ -67,6 +87,14 @@ const styles = EStyleSheet.create({
     marginBottom: 5,
     borderRadius: 10,
     resizeMode: 'center',
+  },
+  image: {
+    width: 30,
+    height: 30,
+    marginBottom: 5,
+    borderRadius: 10,
+    resizeMode: 'center',
+    alignSelf: 'flex-end',
   },
   button: {
     backgroundColor: '$PRIMARY',

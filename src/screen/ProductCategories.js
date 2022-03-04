@@ -14,6 +14,8 @@ import { fetchProductsCategory } from '../redux/actions/productActionCategory';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import ProductCard from '../components/molecule/ProductCard';
 import Image__ from '../components/atoms/image/Image__';
+import { TextInput } from 'react-native-gesture-handler';
+import SearchInput from '../components/molecule/SearchInput';
 const ProductCategories = ({ navigation }) => {
   const dispatch = useDispatch();
   const {products, isFetching} = useSelector(state => state.products);
@@ -40,14 +42,14 @@ const ProductCategories = ({ navigation }) => {
   const renderLoader = () => 
     isFetching ? <ActivityIndicator size="large" color="#333" /> : null;
 
-  const renderHeader = () => (
+  const renderHeader = ({item}) => (
     <View>
-      <View style={styles.cart}>
-        <Text style={styles.txt}>Categories</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('AddCart')}>
-          <Image style={styles.image} source={require('../assets/add_cart_1.jpg')} />
-        </TouchableOpacity>
-      </View>
+      
+        <Image__ navigation={navigation} />
+
+        <SearchInput navigation={navigation}/>
+
+      <Text style={styles.txt}>Categories</Text>
 
       <FlatList
         horizontal={true}
@@ -58,6 +60,7 @@ const ProductCategories = ({ navigation }) => {
         keyExtractor={data => data}
       />
       <Text style={styles.txt}>Products</Text>
+
     </View>
   );
 
@@ -99,7 +102,6 @@ const styles = EStyleSheet.create({
   },
   cart: {
     flexDirection: 'row',
-
   },
   scrollview:{
     margin: 5,

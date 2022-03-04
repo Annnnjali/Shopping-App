@@ -52,6 +52,7 @@ const styles = EStyleSheet.create({
       button: {
         backgroundColor: '$PRIMARY',
         margin: 2,
+        marginBottom: 30,
         paddingHorizontal: 20,
         paddingVertical: 5,
         borderRadius: 10,

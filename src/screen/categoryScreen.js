@@ -5,13 +5,15 @@ import {
     Image, 
     FlatList,
     ActivityIndicator,
-    TouchableOpacity,
+    TextInput
 } from 'react-native';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategoryProducts } from '../redux/actions/categoryAction';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import ProductCard from '../components/molecule/ProductCard';
+import Image__ from '../components/atoms/image/Image__';
+import SearchInput from '../components/molecule/SearchInput';
 
 const CategoryScreen = ({ route, navigation }) => {
   const { category } = route.params;
@@ -27,9 +29,8 @@ const CategoryScreen = ({ route, navigation }) => {
   
   const renderHeader = () => (
     <View>
-      <TouchableOpacity onPress={() => navigation.navigate('AddCart')}>
-        <Image style={styles.image} source={require('../assets/add_cart_1.jpg')} />
-      </TouchableOpacity>
+        <Image__ navigation={navigation} />
+        <SearchInput navigation={navigation}/>
       <View>
         <Text style={styles.txt}>{category}</Text>
       </View>
