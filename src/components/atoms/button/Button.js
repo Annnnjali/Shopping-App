@@ -16,39 +16,6 @@ const Button = ({text, onPress}) => {
 export default Button;
 
 const styles = EStyleSheet.create({
-    container: {
-        flex: 1,
-        padding:5,
-        backgroundColor: '$BG_COLOR',
-        
-      },
-      productContainer: {
-        backgroundColor: '$CARD_BACKGROUND',
-        padding: 10,
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        margin: 4,
-        borderRadius: 10,
-      },
-      title: {
-        fontWeight: 'bold',
-        color: '$DARK',
-        marginBottom: 6,
-        fontSize: 16,
-      },
-      desc: {
-        color: '$DARK_LIGHT',
-        marginBottom: 5,
-        fontSize: 13
-      },
-      img: {
-        width: 140,
-        height: 240,
-        marginBottom: 5,
-        borderRadius: 10,
-        resizeMode: 'center',
-      },
       button: {
         backgroundColor: '$PRIMARY',
         margin: 2,

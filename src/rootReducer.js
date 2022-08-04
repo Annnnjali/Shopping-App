@@ -5,6 +5,7 @@ import productsCategoryReducer from "./redux/reducers/productsCategoryReducer";
 import categoryReducer from "./redux/reducers/categoryReducer";
 import authReducer from './redux/reducers/authReducer';
 import favReducer from "./redux/reducers/favReducer";
+import addCartReducer from "./redux/reducers/addCartReducer";
 
 const rootReducer = combineReducers({
     products : productsReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     category: categoryReducer,
     auth: authReducer,
     favorite: favReducer,
+    addcart: addCartReducer,
 });
 
 export default rootReducer;

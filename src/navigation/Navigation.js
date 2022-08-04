@@ -10,6 +10,7 @@ import Profile from '../screen/auth/Profile';
 import Register from '../screen/auth/Register';
 import Password from '../screen/auth/Password';
 import Favorite from '../screen/Favorite';
+import SplashScreen from '../screen/SplashScreen';
 import {useSelector} from 'react-redux';
 
 const Stack = createStackNavigator();
@@ -18,7 +19,6 @@ const Navigation = () => {
   const {isLogin, isRegistered} = useSelector(state => state.auth);
   return (
     <NavigationContainer>
-      {console.log('isRegistered==>', isRegistered)}
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
@@ -47,19 +47,13 @@ const Navigation = () => {
             <Stack.Screen name="Favorite" component={Favorite} />
             <Stack.Screen name="Profile" component={Profile} />
           </>
-        ) : isRegistered ? (
-          <>
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Password" component={Password} />
-            <Stack.Screen name="Register" component={Register} />
-          </>
         ) : (
-          <>
-            <Stack.Screen name="Register" component={Register} />
-            <Stack.Screen name="Password" component={Password} />
-            <Stack.Screen name="Login" component={Login} />
-          </>
-        )}
+            <>
+              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Password" component={Password} />
+              <Stack.Screen name="Register" component={Register} />
+            </>
+          )}
       </Stack.Navigator>
     </NavigationContainer>
   );

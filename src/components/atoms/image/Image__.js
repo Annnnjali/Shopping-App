@@ -1,6 +1,7 @@
 import { TouchableOpacity, Image, View } from 'react-native'
 import React from 'react'
 import EStyleSheet from 'react-native-extended-stylesheet'
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Image__ = ({navigation}) => {
 

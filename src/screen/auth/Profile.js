@@ -10,6 +10,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import { logOut } from '../../redux/actions/authAction'
+import EStyleSheet from 'react-native-extended-stylesheet'
 
 const Profile = ({ navigation }) => {
   const { userDetails } = useSelector(state => state.auth);
@@ -43,7 +44,7 @@ const Profile = ({ navigation }) => {
 
 export default Profile
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   head:{
     flex: 1,
     backgroundColor: 'white',
